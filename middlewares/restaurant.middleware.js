@@ -20,3 +20,22 @@ exports.validIfRestaurantExist = catchAsync(async (req, res, next) => {
   req.restaurant = restaurant;
   next();
 });
+
+
+exports.validIfRestaurantForReviews = catchAsync(async (req, res, next) => {
+  const { restaurantId } = req.params;
+
+  const restaurant = await Restaurant.findOne({
+    where: {
+      id:restaurantId,
+      status: 'active',
+    },
+  });
+
+  if (!restaurant) {
+    return next(new AppError(`Restaurant with id: ${id} not found`));
+  }
+
+  req.restaurant = restaurant;
+  next();
+});

@@ -10,17 +10,20 @@ const validationMiddleware = require('../middlewares/validations.middleware')
 
 const router =  express.Router()
 
-router
-.use(authMiddleware.protect)
+router.use(authMiddleware.protect)
 
 router
-.post('/',validationMiddleware.createOrder,orderMiddleware.validIfExistMealForOrder, orderController.create
+.post('/',validationMiddleware.createOrder,
+orderMiddleware.validIfExistMealForOrder, 
+orderController.create
 )
 
 router.get('/me', orderController.findMe)
 
 router
-.route(':id', orderMiddleware.validIfOrderExist
+.use('/:id',orderMiddleware.validIfOrderExist)
+.route('/:id',
+orderMiddleware.validIfOrderExist
 )
 .patch(orderController.update)
 .delete(orderController.delete)

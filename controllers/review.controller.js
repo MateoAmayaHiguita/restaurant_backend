@@ -33,7 +33,6 @@ exports.update = catchAsync(async (req, res, next) => {
     status: 'Success',
     message: 'The review has been updated',
     newReview: review,
-    restaurant,
   });
 });
 

@@ -8,6 +8,10 @@ const Order = db.define('orders',{
         type: DataTypes.INTEGER,
         allowNull:false
     },
+    mealId:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     userId:{
         type: DataTypes.INTEGER,
         allowNull:false
@@ -22,7 +26,7 @@ const Order = db.define('orders',{
     },
     status:{
         type: DataTypes.ENUM('active','cancelled','completed'),
-        defaultValues: 'active',
+        defaultValue: 'active',
     }
 })
 ;

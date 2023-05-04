@@ -83,19 +83,13 @@ exports.createUpdateRestaurantReview = [
   body('rating')
     .notEmpty()
     .withMessage('The rating field is required')
-    .isNumeric({ min: 1 }, { max: 5 })
+    .isInt({ min: 1, max: 5 })
     .withMessage('The rating value must be between 1-5'),
   validFields,
 ];
 // <--- MEAL --->
 
-exports.createMeal = [
-  body('name').notEmpty().withMessage('The name field is required'),
-  body('price').notEmpty().withMessage('The price field is required'),
-  validFields,
-];
-
-exports.updateMeal = [
+exports.createUpdateMeal = [
   body('name').notEmpty().withMessage('The name field is required'),
   body('price').notEmpty().withMessage('The price field is required'),
   validFields,

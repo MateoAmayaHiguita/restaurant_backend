@@ -1,4 +1,5 @@
 const Meal = require('../models/meals.models');
+const Restaurant = require('../models/restaurant.models');
 const catchAsync = require('../utils/catchAsync');
 
 exports.create = catchAsync(async (req, res, next) => {
@@ -7,7 +8,7 @@ exports.create = catchAsync(async (req, res, next) => {
 
   const meal = await Meal.create({
     name,
-    price: `$ ${price}`,
+    price,
     restaurantId: restaurant.id,
   });
   return res.status(201).json({
@@ -22,6 +23,13 @@ exports.findAll = catchAsync(async (req, res, next) => {
     where: {
       status: 'active',
     },
+        attributes:{ exclude: ['status','createdAt','updatedAt']},
+    include:[
+      {
+        model: Restaurant,
+        attributes:{ exclude: ['status','createdAt','updatedAt']}
+      }
+    ]
   });
   return res.status(200).json({
     status: 'Success',

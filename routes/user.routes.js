@@ -11,22 +11,26 @@ const authController = require('./../controllers/auth.controller');
 
 const router = express.Router();
 
-router.post('/signup', validationMiddleware.createUser, authController.signup);
-router.post('/login', validationMiddleware.loginUser, authController.login);
+router.post('/signup', validationMiddleware.createUser, 
+authController.signup);
+router.post('/login', validationMiddleware.loginUser, 
+authController.login);
 
 router.use(authMiddleware.protect);
 
 router.get('/orders', userController.findAll);
-router.get(
-  '/orders/:id',
+router.get('/orders/:id',
   userMiddleware.validIfExistUser,
   userController.findOne
 );
 
 router
-  .use('/:id', userMiddleware.validIfExistUser,authMiddleware.protectAccountOwner)
+  .use('/:id', 
+  userMiddleware.validIfExistUser,
+  authMiddleware.protectAccountOwner)
   .route('/:id')
-  .patch(validationMiddleware.updateUser, userController.update)
+  .patch(validationMiddleware.updateUser, 
+  userController.update)
   .delete(userController.delete);
 
 module.exports = router;

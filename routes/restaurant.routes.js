@@ -26,14 +26,25 @@ router.get(
 
 router.use(authMiddleware.protect);
 
-router.post('/reviews/:id',validationMiddleware.createUpdateRestaurantReview,restaurantMiddleware.validIfRestaurantExist,reviewController.create)
+router.post('/reviews/:id',
+validationMiddleware.createUpdateRestaurantReview,
+restaurantMiddleware.validIfRestaurantExist,
+reviewController.create)
 
 router
-.patch('/reviews/:restaurantId/:id',validationMiddleware.createUpdateRestaurantReview
-,restaurantMiddleware
-.validIfRestaurantExist,reviewMiddleware.validIfReviewExist,reviewController.update)
+.patch(
+'/reviews/:restaurantId/:id',
+validationMiddleware.createUpdateRestaurantReview,
+restaurantMiddleware.validIfRestaurantForReviews,
+reviewMiddleware.validIfReviewExist,
+reviewController.update
+);
 
-router.delete('/reviews/:restaurantId/:id', restaurantMiddleware.validIfRestaurantExist)
+router.delete('/reviews/:restaurantId/:id',
+restaurantMiddleware.validIfRestaurantForReviews,
+reviewMiddleware.validIfReviewExist,
+reviewController.delete
+)
 
 router
   .use(authMiddleware.restrictTo('admin'))
